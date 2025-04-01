@@ -15,7 +15,7 @@ inputs:
     description: |
       Any extra packages to install outside of the packages listed in the
       dependencies.
-    default: any::rcmdcheck
+    default: any::rcmdcheck, local::.
   needs:
     description: |
       Any extra Config/Needs fields which need to be included when
