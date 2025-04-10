@@ -52,13 +52,16 @@ runs:
           # On Windows scoop will be used so no need to download the release
           if [ "${{inputs.version}}" == "release" ]; then
             # download the latest stable release
-            gh release download --repo github.com/quarto-dev/quarto-cli --pattern ${{ format('*{0}', env.BUNDLE_EXT) }}
-            version=$(curl https://quarto.org/docs/download/_download.json | jq -r '.version')
+            version=$(curl -s https://quarto.org/docs/download/_download.json | jq -r '.version')
+            url=https://github.com/quarto-dev/quarto-cli/releases/download/v${version}/${file}
+            wget "$url"            
             echo "version=${version}" >> $GITHUB_OUTPUT
           elif [ "${{inputs.version}}" == "LATEST" -o "${{inputs.version}}" == "pre-release" ]; then
             # get latest pre release version 
-            version=$(curl https://quarto.org/docs/download/_prerelease.json | jq -r '.version')
-            wget https://github.com/quarto-dev/quarto-cli/releases/download/v$version/quarto-$version-${{env.BUNDLE_EXT}}
+            version=$(curl -s https://quarto.org/docs/download/_prerelease.json | jq -r '.version')            
+            file=quarto-${version}-${{env.BUNDLE_EXT}}
+            url=https://github.com/quarto-dev/quarto-cli/releases/download/v${version}/${file}
+            wget "$url"            
             echo "version=${version}" >> $GITHUB_OUTPUT
           else
             # download a specific release
