@@ -87,9 +87,6 @@ runs:
       ev2 <- paste0("needs=", ns)
       cat(ev2, sep = "\n", append = TRUE, file = Sys.getenv("GITHUB_OUTPUT"))
     shell: Rscript {0}
-
-  - name: Set up GitHub CLI
-    uses: cli/gh-action@v2
   
   - uses: smnnlt/actions/setup-r-dependencies@v3
     with:
