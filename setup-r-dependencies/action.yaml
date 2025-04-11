@@ -294,7 +294,7 @@ runs:
 
       - name: Install quarto if needed
         if: ${{ steps.check-quarto.outputs.install == 'true' }}
-        uses: smnnlt/actions/quarto-setup@v4
+        uses: smnnlt/actions/quarto-setup@v5
         with:
           version: ${{ inputs.quarto-version }}
 

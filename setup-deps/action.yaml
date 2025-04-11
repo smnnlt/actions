@@ -88,7 +88,7 @@ runs:
       cat(ev2, sep = "\n", append = TRUE, file = Sys.getenv("GITHUB_OUTPUT"))
     shell: Rscript {0}
 
-  - uses: smnnlt/actions/setup-r-dependencies@v4
+  - uses: smnnlt/actions/setup-r-dependencies@v5
     with:
       cache-version: ${{ steps.cache-version.outputs.cache-version }}
       extra-packages: ${{ inputs.extra-packages }}
