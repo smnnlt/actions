@@ -54,18 +54,18 @@ runs:
             # download the latest stable release
             version=$(curl -s https://quarto.org/docs/download/_download.json | grep '"version"' | cut -d '"' -f4)
             url=https://github.com/quarto-dev/quarto-cli/releases/download/v${version}/${file}
-            curl -L -O "$url"
+            curl -L "$url" -o "$file"
             echo "version=${version}" >> $GITHUB_OUTPUT
           elif [ "${{inputs.version}}" == "LATEST" -o "${{inputs.version}}" == "pre-release" ]; then
             # get latest pre release version
             version=$(curl -s https://quarto.org/docs/download/_prerelease.json | grep '"version"' | cut -d '"' -f4)
             file=quarto-${version}-${{env.BUNDLE_EXT}}
             url=https://github.com/quarto-dev/quarto-cli/releases/download/v${version}/${file}
-            curl -L -O "$url"
+            curl -L "$url" -o "$file"
             echo "version=${version}" >> $GITHUB_OUTPUT
           else
             # download a specific release
-            curl -L -O https://github.com/quarto-dev/quarto-cli/releases/download/v${{inputs.version}}/quarto-${{inputs.version}}-${{env.BUNDLE_EXT}}
+            curl -L -o https://github.com/quarto-dev/quarto-cli/releases/download/v${{inputs.version}}/quarto-${{inputs.version}}-${{env.BUNDLE_EXT}}
             echo "version=${{inputs.version}}" >> $GITHUB_OUTPUT
           fi
           echo "installer=$(ls quarto*${{ env.BUNDLE_EXT }})" >> $GITHUB_OUTPUT
